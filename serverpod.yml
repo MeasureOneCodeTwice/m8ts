@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: minecraft-server
+spec:
+  containers:
+  - name: dockermc
+    image: measureonecodetwice/dockermc:1.0
+    volumeMounts:
+      - mountPath: /persistent-server-files
+        name: server-files-pvc
+      - mountPath: /config
+        name: server-properties
+  volumes:
+    - name: server-files-pvc
+    - name: server-properties
+
+
+
