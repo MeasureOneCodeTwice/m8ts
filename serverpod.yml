@@ -3,6 +3,7 @@ kind: Pod
 metadata: 
   name: minecraft-server
 spec:
+
   containers:
   - name: dockermc
     image: measureonecodetwice/dockermc:1.0
@@ -10,10 +11,20 @@ spec:
       - mountPath: /persistent-server-files
         name: server-files-pvc
       - mountPath: /config
-        name: server-properties
+        name: server-config
+    envFrom: 
+      - configMapRef: 
+          name: server-envs-config-map
+    ports:
+      - containerPort: 80
+      - containerPort: 25565
+      - containerPort: 25500
+
   volumes:
-    - name: server-files-pvc
-    - name: server-properties
+  - name: server-files-pvc
+  - name: server-config
+    configMap: 
+      name: server-config-map
 
 
 
